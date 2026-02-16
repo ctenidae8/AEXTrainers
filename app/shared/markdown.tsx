@@ -1,5 +1,4 @@
-
-```tsx
+tsx
 'use client'
 
 export default function Markdown({ text }: { text: string }) {
@@ -44,4 +43,4 @@ export default function Markdown({ text }: { text: string }) {
   }
   return {els}
 }
-```
+
