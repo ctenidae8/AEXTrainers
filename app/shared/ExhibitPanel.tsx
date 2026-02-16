@@ -1,4 +1,4 @@
-```tsx
+tsx
 'use client'
 
 import { useState } from 'react'
@@ -78,4 +78,3 @@ export default function ExhibitPanel({ artifacts, allShown, exhibitData, onClose
     
   )
 }
-```
