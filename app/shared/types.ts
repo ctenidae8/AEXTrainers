@@ -1,4 +1,4 @@
-```ts
+ts
 export interface Message {
   role: 'user' | 'assistant'
   text: string
@@ -16,4 +16,4 @@ export interface SessionInfo {
   title: string
   desc: string
 }
-```
+
