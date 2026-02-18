@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getSession } from '@/lib/auth'
+import { getUserById } from '@/lib/db'
 
 export async function POST(req: NextRequest) {
+  // Auth check
+  const session = await getSession()
+  if (!session) {
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  }
+
+  const user = await getUserById(session.userId)
+  if (!user || !user.course_paid) {
+    return NextResponse.json({ error: 'Course not purchased' }, { status: 403 })
+  }
+
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
     return NextResponse.json({ error: 'API key not configured' }, { status: 500 })

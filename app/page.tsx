@@ -84,10 +84,13 @@ export default function Home() {
         <div style={{ background: '#161820', border: '1px solid #2a2d36', borderRadius: 8, padding: '20px 24px', marginBottom: 28 }}>
           <PricingTable />
         </div>
-        <button onClick={() => router.push('/course-1')} style={{ background: '#c97d3c', color: '#0f1117', border: 'none', borderRadius: 6, padding: '13px 36px', fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s', letterSpacing: 0.3 }}>
+        <button onClick={() => router.push('/enroll')} style={{ background: '#c97d3c', color: '#0f1117', border: 'none', borderRadius: 6, padding: '13px 36px', fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s', letterSpacing: 0.3 }}>
           Enroll — $67
         </button>
         <div style={{ marginTop: 10, fontSize: 12, color: '#6f7681' }}>Early access pricing · 50 spots</div>
+        <div style={{ marginTop: 8 }}>
+          <a href="/login" style={{ color: '#6f7681', fontSize: 12, textDecoration: 'none' }}>Already enrolled? <span style={{ color: '#c97d3c' }}>Log in</span></a>
+        </div>
         <div style={{ marginTop: 40, fontSize: 11, color: '#3a3d46', letterSpacing: 0.5 }}>Powered by AEXgora Research</div>
       </div>
     </div>
