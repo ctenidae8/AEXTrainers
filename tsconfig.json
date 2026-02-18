@@ -19,16 +19,4 @@
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
-```
-
----
-
-## 4. .gitignore
-
-```
-node_modules/
-.next/
-.env.local
-.env*.local
-*.tsbuildinfo
 
