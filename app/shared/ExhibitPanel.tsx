@@ -6,7 +6,7 @@ import type { Exhibit } from './types'
 interface Props {
   artifacts: string[]
   allShown: string[]
-  exhibitData: Record
+  exhibitData: Record<string, Exhibit>
   onClose: () => void
   onSwitch: (key: string) => void
 }
