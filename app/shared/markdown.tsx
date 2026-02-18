@@ -1,4 +1,3 @@
-tsx
 'use client'
 
 export default function Markdown({ text }: { text: string }) {
