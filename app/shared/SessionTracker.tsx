@@ -1,4 +1,3 @@
-tsx
 'use client'
 
 import type { SessionInfo } from './types'
