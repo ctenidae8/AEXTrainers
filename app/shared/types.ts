@@ -15,4 +15,3 @@ export interface SessionInfo {
   title: string
   desc: string
 }
-
