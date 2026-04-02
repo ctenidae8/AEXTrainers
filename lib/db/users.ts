@@ -74,3 +74,27 @@ export async function loadConversation(
   if (!result.rows[0]) return null
   return result.rows[0].messages
 }
+
+export async function createEnrollmentFromStripe(
+  email: string,
+  course: string
+): Promise<number> {
+  // Creates or retrieves user, creates enrollment
+  // Idempotent — safe to call multiple times for same email/course
+  const existing = await sql`
+    SELECT aex_id FROM users WHERE email = ${email}
+  `
+  if (existing.rows[0]) {
+    const aex_id = existing.rows[0].aex_id
+    await sql`
+      INSERT INTO enrollments (aex_id, course)
+      VALUES (${aex_id}, ${course})
+      ON CONFLICT (aex_id, course) DO NOTHING
+    `
+    return aex_id
+  }
+
+  const aex_id = await createProvisionalUser(email)
+  await createEnrollment(aex_id, course)
+  return aex_id
+}

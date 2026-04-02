@@ -43,3 +43,13 @@ CREATE TABLE IF NOT EXISTS conversations (
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   PRIMARY KEY (aex_id, course)
 );
+
+-- Stripe purchase records (idempotency + audit trail)
+CREATE TABLE IF NOT EXISTS purchases (
+  id                SERIAL PRIMARY KEY,
+  stripe_session_id TEXT UNIQUE NOT NULL,
+  email             TEXT NOT NULL,
+  course            TEXT NOT NULL,
+  aex_id            INTEGER REFERENCES users(aex_id),
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

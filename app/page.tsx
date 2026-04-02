@@ -82,7 +82,7 @@ export default function VirgilPage() {
 
   const routeLabels: Record<RouteTarget, { label: string; path: string }> = {
     ariadne: { label: 'Start with Ariadne →', path: '/ariadne' },
-    joan: { label: 'Take me to Joan →', path: '/joan' },
+    joan: { label: 'See Joan\'s course →', path: '/pricing' },
     bartlett: { label: 'Bartlett isn\'t ready yet', path: '/bartlett' },
   }
 
