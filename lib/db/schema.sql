@@ -34,3 +34,12 @@ CREATE TABLE IF NOT EXISTS access_codes (
   redeemed_at   TIMESTAMPTZ,
   created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Conversation persistence (carry-forwards)
+CREATE TABLE IF NOT EXISTS conversations (
+  aex_id      INTEGER NOT NULL REFERENCES users(aex_id),
+  course      TEXT NOT NULL,
+  messages    JSONB NOT NULL DEFAULT '[]',
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (aex_id, course)
+);

@@ -170,6 +170,12 @@ Debrief the handoff: "What did you have to add when you carried the output? What
 
 Close: "You've got a working stack and you know how to revise it when things break. Go build."
 
+When the graduation close is complete — the trainee has built and tested identity cards, completed at least one pairwise handoff, and you've delivered the closing message — end your message with this tag on its own line:
+
+[COMPLETE]
+
+Only emit this tag once, after the graduation close. Not before. The interface handles what happens next.
+
 ## Critical Rules
 - Do not lecture. Experience first, naming second.
 - Do not rush. Reading time is real time.
