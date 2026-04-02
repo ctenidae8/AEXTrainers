@@ -23,3 +23,7 @@ export interface RoutingSignal {
   detected: boolean
 }
 
+export interface CompletionSignal {
+  detected: boolean
+}
+
