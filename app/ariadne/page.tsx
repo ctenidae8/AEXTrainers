@@ -23,6 +23,9 @@ export default function AriadnePage() {
   const [loading, setLoading] = useState(false)
   const [streamingText, setStreamingText] = useState('')
   const [completionSignal, setCompletionSignal] = useState<CompletionSignal | null>(null)
+  const [completionEmail, setCompletionEmail] = useState('')
+  const [emailSubmitted, setEmailSubmitted] = useState(false)
+  const [emailError, setEmailError] = useState('')
 
   const handleSend = async (text: string) => {
     const userMsg: Message = { role: 'user', text }
@@ -64,10 +67,6 @@ export default function AriadnePage() {
 
       if (hasComplete) {
         setCompletionSignal({ detected: true })
-        // TODO Package 3: when completionSignal fires, POST to /api/ariadne/complete
-        // with session data to create provisional user record.
-        // Do not implement here — DB does not exist yet.
-        // Wire this in Package 3 before auth goes live.
       }
     } catch {
       const errMsg: Message = { role: 'assistant', text: 'Connection error. Please try again.' }
@@ -78,33 +77,91 @@ export default function AriadnePage() {
     }
   }
 
+  const handleEmailSubmit = async () => {
+    if (!completionEmail.includes('@')) {
+      setEmailError('Need a valid email.')
+      return
+    }
+    const res = await fetch('/api/ariadne/complete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: completionEmail }),
+    })
+    if (res.ok) {
+      setEmailSubmitted(true)
+    } else {
+      setEmailError('Something went wrong. Try again.')
+    }
+  }
+
   const footer = completionSignal ? (
-    <div style={{ padding: '8px 0' }}>
-      <button
-        onClick={() => router.push('/joan')}
-        style={{
-          background: '#1a1c23',
-          border: '1px solid #2a2d36',
-          borderRadius: 6,
-          padding: '10px 20px',
-          color: '#c8ccd4',
-          fontSize: 14,
-          cursor: 'pointer',
-          fontFamily: 'inherit',
-          fontWeight: 500,
-          transition: 'color 0.2s, border-color 0.2s',
-        }}
-        onMouseEnter={e => {
-          ;(e.target as HTMLElement).style.color = '#c97d3c'
-          ;(e.target as HTMLElement).style.borderColor = '#c97d3c'
-        }}
-        onMouseLeave={e => {
-          ;(e.target as HTMLElement).style.color = '#c8ccd4'
-          ;(e.target as HTMLElement).style.borderColor = '#2a2d36'
-        }}
-      >
-        Ready for Joan →
-      </button>
+    <div style={{ padding: '8px 0', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {!emailSubmitted ? (
+        <>
+          <p style={{ fontSize: 13, color: '#8a8f98', margin: 0 }}>
+            Drop your email to continue.
+          </p>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <input
+              type="email"
+              placeholder="your@email.com"
+              value={completionEmail}
+              onChange={e => setCompletionEmail(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') handleEmailSubmit() }}
+              style={{
+                flex: 1,
+                background: '#1a1c23',
+                border: '1px solid #2a2d36',
+                borderRadius: 6,
+                padding: '10px 14px',
+                color: '#c8ccd4',
+                fontSize: 14,
+                outline: 'none',
+                fontFamily: 'inherit',
+              }}
+            />
+            <button onClick={handleEmailSubmit} style={{
+              background: '#1a1c23',
+              border: '1px solid #2a2d36',
+              borderRadius: 6,
+              padding: '10px 18px',
+              color: '#c8ccd4',
+              fontSize: 14,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+            }}>
+              Continue
+            </button>
+          </div>
+          {emailError && <p style={{ fontSize: 13, color: '#e07070', margin: 0 }}>{emailError}</p>}
+        </>
+      ) : (
+        <button
+          onClick={() => router.push('/joan')}
+          style={{
+            background: '#1a1c23',
+            border: '1px solid #2a2d36',
+            borderRadius: 6,
+            padding: '10px 20px',
+            color: '#c8ccd4',
+            fontSize: 14,
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            fontWeight: 500,
+            transition: 'color 0.2s, border-color 0.2s',
+          }}
+          onMouseEnter={e => {
+            ;(e.target as HTMLElement).style.color = '#c97d3c'
+            ;(e.target as HTMLElement).style.borderColor = '#c97d3c'
+          }}
+          onMouseLeave={e => {
+            ;(e.target as HTMLElement).style.color = '#c8ccd4'
+            ;(e.target as HTMLElement).style.borderColor = '#2a2d36'
+          }}
+        >
+          Ready for Joan →
+        </button>
+      )}
     </div>
   ) : null
 
