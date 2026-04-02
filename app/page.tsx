@@ -137,6 +137,13 @@ export default function VirgilPage() {
           letterSpacing: '0.04em',
         }}>
           aex.training
+          <div style={{ marginTop: 12, fontSize: 11, color: '#444', fontWeight: 400, letterSpacing: '0.01em' }}>
+            <a href="/about" style={{ color: '#555', textDecoration: 'none' }}>About</a>
+            {' · '}
+            <a href="/terms" style={{ color: '#555', textDecoration: 'none' }}>Terms</a>
+            {' · '}
+            <a href="/privacy" style={{ color: '#555', textDecoration: 'none' }}>Privacy</a>
+          </div>
         </div>
       )}
       <div style={{ flex: 1, minHeight: 0 }}>

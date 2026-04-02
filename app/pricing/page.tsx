@@ -143,6 +143,8 @@ export default function PricingPage() {
           </p>
 
           <p style={{ fontSize: 11, color: '#444', margin: 0, textAlign: 'center' }}>
+            <a href="/about" style={{ color: '#555', textDecoration: 'none' }}>About</a>
+            {' · '}
             <a href="/terms" style={{ color: '#555', textDecoration: 'none' }}>Terms</a>
             {' · '}
             <a href="/privacy" style={{ color: '#555', textDecoration: 'none' }}>Privacy</a>
