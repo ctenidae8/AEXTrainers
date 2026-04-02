@@ -25,7 +25,7 @@ function stripRouteTags(text: string): string {
 export default function VirgilPage() {
   const router = useRouter()
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', text: "Hello. I'm Virgil. What brings you to aex.training?" }
+    { role: 'assistant', text: "I'm Virgil. I help people figure out where to start at aex.training. What are you hoping to learn or build?" }
   ])
   const [loading, setLoading] = useState(false)
   const [streamingText, setStreamingText] = useState('')
@@ -92,10 +92,10 @@ export default function VirgilPage() {
         onClick={() => router.push(routeLabels[routingSignal.target].path)}
         style={{
           background: '#1a1c23',
-          border: '1px solid #2a2d36',
+          border: '1px solid #c97d3c',
           borderRadius: 6,
           padding: '10px 20px',
-          color: '#c8ccd4',
+          color: '#c97d3c',
           fontSize: 14,
           cursor: 'pointer',
           fontFamily: 'inherit',
@@ -103,12 +103,12 @@ export default function VirgilPage() {
           transition: 'color 0.2s, border-color 0.2s',
         }}
         onMouseEnter={e => {
-          ;(e.target as HTMLElement).style.color = '#c97d3c'
-          ;(e.target as HTMLElement).style.borderColor = '#c97d3c'
+          ;(e.target as HTMLElement).style.color = '#e0a06a'
+          ;(e.target as HTMLElement).style.borderColor = '#e0a06a'
         }}
         onMouseLeave={e => {
-          ;(e.target as HTMLElement).style.color = '#c8ccd4'
-          ;(e.target as HTMLElement).style.borderColor = '#2a2d36'
+          ;(e.target as HTMLElement).style.color = '#c97d3c'
+          ;(e.target as HTMLElement).style.borderColor = '#c97d3c'
         }}
       >
         {routeLabels[routingSignal.target].label}
@@ -127,6 +127,18 @@ export default function VirgilPage() {
       }}>
         aex.training
       </header>
+      {messages.length <= 1 && (
+        <div style={{
+          textAlign: 'center',
+          padding: '48px 0 0',
+          fontSize: 22,
+          fontWeight: 600,
+          color: '#c8ccd4',
+          letterSpacing: '0.04em',
+        }}>
+          aex.training
+        </div>
+      )}
       <div style={{ flex: 1, minHeight: 0 }}>
         <ChatUI
           messages={messages}

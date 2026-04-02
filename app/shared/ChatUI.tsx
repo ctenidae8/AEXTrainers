@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import type { Message } from './types'
 import Markdown from './markdown'
 
@@ -14,17 +14,32 @@ interface ChatUIProps {
 
 export default function ChatUI({ messages, onSend, loading, streamingText, footer }: ChatUIProps) {
   const bottomRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, streamingText])
 
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  const autoResize = useCallback(() => {
+    const el = inputRef.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px'
+  }, [])
+
   const handleSubmit = () => {
     const text = inputRef.current?.value.trim()
     if (!text || loading) return
     onSend(text)
-    if (inputRef.current) inputRef.current.value = ''
+    if (inputRef.current) {
+      inputRef.current.value = ''
+      inputRef.current.style.height = 'auto'
+      inputRef.current.focus()
+    }
   }
 
   return (
@@ -110,13 +125,19 @@ export default function ChatUI({ messages, onSend, loading, streamingText, foote
         </div>
       )}
 
-      <div style={{ padding: '8px 16px 16px', display: 'flex', gap: 8 }}>
-        <input
+      <div style={{ padding: '8px 16px 16px', display: 'flex', gap: 8, alignItems: 'flex-end' }}>
+        <textarea
           ref={inputRef}
-          type="text"
           placeholder="Type a message..."
           disabled={loading}
-          onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSubmit() } }}
+          rows={1}
+          onInput={autoResize}
+          onKeyDown={e => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault()
+              handleSubmit()
+            }
+          }}
           style={{
             flex: 1,
             background: '#1a1c23',
@@ -127,6 +148,11 @@ export default function ChatUI({ messages, onSend, loading, streamingText, foote
             fontSize: 14,
             outline: 'none',
             fontFamily: 'inherit',
+            resize: 'none',
+            lineHeight: 1.5,
+            minHeight: 40,
+            maxHeight: 120,
+            overflow: 'auto',
           }}
         />
         <button
@@ -142,6 +168,7 @@ export default function ChatUI({ messages, onSend, loading, streamingText, foote
             cursor: loading ? 'default' : 'pointer',
             fontFamily: 'inherit',
             transition: 'color 0.2s',
+            minHeight: 40,
           }}
         >
           Send
