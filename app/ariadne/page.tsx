@@ -17,7 +17,7 @@ export default function AriadnePage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      text: "I'm Ariadne. Notice how that went with Virgil — one question, and your answer shaped everything after it. That's not a trick. That's what you're about to learn to do with your own AI. What are you working on right now?"
+      text: "I'm Ariadne. Notice how that went with Virgil \u2014 one question, and your answer shaped everything after it. That's not a trick. That's what you're about to learn to do with your own AI.\n\nWhat are you working on right now? A project, a trip, a problem you're stuck on \u2014 anything real."
     }
   ])
   const [loading, setLoading] = useState(false)
@@ -140,10 +140,10 @@ export default function AriadnePage() {
           onClick={() => router.push('/joan')}
           style={{
             background: '#1a1c23',
-            border: '1px solid #2a2d36',
+            border: '1px solid #c97d3c',
             borderRadius: 6,
             padding: '10px 20px',
-            color: '#c8ccd4',
+            color: '#c97d3c',
             fontSize: 14,
             cursor: 'pointer',
             fontFamily: 'inherit',
@@ -151,12 +151,12 @@ export default function AriadnePage() {
             transition: 'color 0.2s, border-color 0.2s',
           }}
           onMouseEnter={e => {
-            ;(e.target as HTMLElement).style.color = '#c97d3c'
-            ;(e.target as HTMLElement).style.borderColor = '#c97d3c'
+            ;(e.target as HTMLElement).style.color = '#e0a06a'
+            ;(e.target as HTMLElement).style.borderColor = '#e0a06a'
           }}
           onMouseLeave={e => {
-            ;(e.target as HTMLElement).style.color = '#c8ccd4'
-            ;(e.target as HTMLElement).style.borderColor = '#2a2d36'
+            ;(e.target as HTMLElement).style.color = '#c97d3c'
+            ;(e.target as HTMLElement).style.borderColor = '#c97d3c'
           }}
         >
           Ready for Joan →
