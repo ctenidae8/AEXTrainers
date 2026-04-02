@@ -12,23 +12,22 @@ const SESSIONS: SessionInfo[] = [
 
 export default function SessionTracker({ current }: { current: number | string }) {
   return (
-    
+    <div style={{ display: 'flex', alignItems: 'center', gap: 0, padding: '12px 16px', background: '#13151b', borderBottom: '1px solid #2a2d36' }}>
       {SESSIONS.map((s, i) => {
         const active = current === s.id
         const idx = SESSIONS.findIndex(x => x.id === s.id)
         const curIdx = SESSIONS.findIndex(x => x.id === current)
         const past = idx < curIdx
         return (
-          
-            
-              {s.label}
-              {s.desc}
-            
-            {i < SESSIONS.length - 1 && }
-          
+          <div key={String(s.id)} style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ textAlign: 'center', padding: '4px 10px' }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: active ? '#c97d3c' : past ? '#6fbf73' : '#555' }}>{s.label}</div>
+              <div style={{ fontSize: 10, color: active ? '#c8ccd4' : past ? '#8a8f98' : '#444', marginTop: 2 }}>{s.desc}</div>
+            </div>
+            {i < SESSIONS.length - 1 && <div style={{ width: 20, height: 1, background: '#2a2d36' }} />}
+          </div>
         )
       })}
-    
+    </div>
   )
 }
-
