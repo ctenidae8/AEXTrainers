@@ -21,8 +21,10 @@ export default function ChatUI({ messages, onSend, loading, streamingText, foote
   }, [messages, streamingText])
 
   useEffect(() => {
-    inputRef.current?.focus()
-  }, [])
+    if (!loading) {
+      inputRef.current?.focus()
+    }
+  }, [loading])
 
   const autoResize = useCallback(() => {
     const el = inputRef.current

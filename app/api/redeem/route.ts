@@ -2,11 +2,19 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sql } from '@/lib/db/client'
 import { createProvisionalUser, createEnrollment, activateUser } from '@/lib/db/users'
 import bcrypt from 'bcryptjs'
+import { checkRateLimit } from '@/app/api/stripe/rate-limit'
 
-// TODO Package 5: add rate limiting before Stripe goes live
-// Access codes are enumerable — fine for small manual cohort, not for public launch
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown'
+    const rateLimit = checkRateLimit(ip)
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: 'Too many attempts. Try again shortly.' },
+        { status: 429 }
+      )
+    }
+
     const { code, email, password } = await req.json()
 
     if (!code || !email || !password) {

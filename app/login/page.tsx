@@ -8,11 +8,18 @@ function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redeemed = searchParams.get('redeemed') === '1'
+  const purchased = searchParams.get('purchased') === '1'
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const [isSettingPassword, setIsSettingPassword] = useState(purchased)
+  const [setPasswordEmail, setSetPasswordEmail] = useState('')
+  const [setPasswordValue, setSetPasswordValue] = useState('')
+  const [setPasswordError, setSetPasswordError] = useState('')
+  const [setPasswordLoading, setSetPasswordLoading] = useState(false)
 
   const handleSubmit = async () => {
     setLoading(true)
@@ -30,37 +37,112 @@ function LoginForm() {
     }
   }
 
+  const handleSetPassword = async () => {
+    setSetPasswordLoading(true)
+    setSetPasswordError('')
+
+    const res = await fetch('/api/auth/set-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: setPasswordEmail, password: setPasswordValue }),
+    })
+
+    if (!res.ok) {
+      const data = await res.json()
+      setSetPasswordError(data.error || 'Something went wrong.')
+      setSetPasswordLoading(false)
+      return
+    }
+
+    // Auto sign-in after password set
+    const result = await signIn('credentials', {
+      email: setPasswordEmail,
+      password: setPasswordValue,
+      redirect: false,
+    })
+    setSetPasswordLoading(false)
+    if (result?.error) {
+      setSetPasswordError('Password set, but sign-in failed. Try signing in manually.')
+    } else {
+      router.push('/joan')
+    }
+  }
+
   return (
     <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {redeemed && (
-        <p style={{ color: '#6fbf73', fontSize: 13, margin: 0 }}>
-          Code redeemed — sign in to continue.
-        </p>
+      {isSettingPassword ? (
+        <>
+          <p style={{ color: '#6fbf73', fontSize: 13, margin: 0 }}>
+            Payment confirmed — set a password to access your course.
+          </p>
+          <input
+            type="email"
+            placeholder="Email used at checkout"
+            value={setPasswordEmail}
+            onChange={e => setSetPasswordEmail(e.target.value)}
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            placeholder="Choose a password (min 8 characters)"
+            value={setPasswordValue}
+            onChange={e => setSetPasswordValue(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') handleSetPassword() }}
+            style={inputStyle}
+          />
+          {setPasswordError && (
+            <p style={{ color: '#e07070', fontSize: 13, margin: 0 }}>{setPasswordError}</p>
+          )}
+          <button
+            onClick={handleSetPassword}
+            disabled={setPasswordLoading}
+            style={buttonStyle}
+          >
+            {setPasswordLoading ? 'Setting up...' : 'Set password and enter →'}
+          </button>
+          <p style={{ color: '#8a8f98', fontSize: 13, margin: 0 }}>
+            Already have a password?{' '}
+            <span
+              onClick={() => setIsSettingPassword(false)}
+              style={{ color: '#c97d3c', cursor: 'pointer' }}
+            >
+              Sign in instead.
+            </span>
+          </p>
+        </>
+      ) : (
+        <>
+          {redeemed && (
+            <p style={{ color: '#6fbf73', fontSize: 13, margin: 0 }}>
+              Code redeemed — sign in to continue.
+            </p>
+          )}
+          <p style={{ color: '#c8ccd4', fontSize: 15, margin: 0 }}>Sign in</p>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') handleSubmit() }}
+            style={inputStyle}
+          />
+          {error && <p style={{ color: '#e07070', fontSize: 13, margin: 0 }}>{error}</p>}
+          <button onClick={handleSubmit} disabled={loading} style={buttonStyle}>
+            {loading ? 'Signing in...' : 'Sign in'}
+          </button>
+          <p style={{ color: '#8a8f98', fontSize: 13, margin: 0 }}>
+            Have an access code?{' '}
+            <a href="/redeem" style={{ color: '#c97d3c', textDecoration: 'none' }}>Redeem it here.</a>
+          </p>
+        </>
       )}
-      <p style={{ color: '#c8ccd4', fontSize: 15, margin: 0 }}>Sign in</p>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        style={inputStyle}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        onKeyDown={e => { if (e.key === 'Enter') handleSubmit() }}
-        style={inputStyle}
-      />
-      {error && <p style={{ color: '#e07070', fontSize: 13, margin: 0 }}>{error}</p>}
-      <button onClick={handleSubmit} disabled={loading} style={buttonStyle}>
-        {loading ? 'Signing in...' : 'Sign in'}
-      </button>
-      <p style={{ color: '#8a8f98', fontSize: 13, margin: 0 }}>
-        Have an access code?{' '}
-        <a href="/redeem" style={{ color: '#c97d3c', textDecoration: 'none' }}>Redeem it here.</a>
-      </p>
     </div>
   )
 }
