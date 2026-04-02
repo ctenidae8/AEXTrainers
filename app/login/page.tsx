@@ -165,6 +165,8 @@ export default function LoginPage() {
         <LoginForm />
       </Suspense>
       <footer style={{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', padding: '16px 0', fontSize: 11, color: '#444' }}>
+        <a href="/about" style={{ color: '#555', textDecoration: 'none' }}>About</a>
+        {' · '}
         <a href="/terms" style={{ color: '#555', textDecoration: 'none' }}>Terms</a>
         {' · '}
         <a href="/privacy" style={{ color: '#555', textDecoration: 'none' }}>Privacy</a>
