@@ -16,3 +16,10 @@ export interface SessionInfo {
   desc: string
 }
 
+export type RouteTarget = 'ariadne' | 'joan' | 'bartlett'
+
+export interface RoutingSignal {
+  target: RouteTarget
+  detected: boolean
+}
+
