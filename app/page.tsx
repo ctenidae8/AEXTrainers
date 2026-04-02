@@ -120,12 +120,23 @@ export default function VirgilPage() {
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#0f1117' }}>
       <header style={{
         padding: '12px 20px',
-        fontSize: 13,
-        color: '#8a8f98',
-        fontWeight: 500,
-        letterSpacing: '0.02em',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexShrink: 0,
       }}>
-        aex.training
+        <span style={{
+          fontSize: 13,
+          color: '#8a8f98',
+          fontWeight: 500,
+          letterSpacing: '0.02em',
+        }}>
+          aex.training
+        </span>
+        <nav style={{ display: 'flex', gap: 20 }}>
+          <a href="/ariadne" style={navLinkStyle}>Ariadne</a>
+          <a href="/pricing" style={navLinkStyle}>Joan</a>
+        </nav>
       </header>
       {messages.length <= 1 && (
         <div style={{
@@ -157,4 +168,12 @@ export default function VirgilPage() {
       </div>
     </div>
   )
+}
+
+const navLinkStyle: React.CSSProperties = {
+  fontSize: 12,
+  color: '#555',
+  textDecoration: 'none',
+  letterSpacing: '0.02em',
+  transition: 'color 0.2s',
 }
