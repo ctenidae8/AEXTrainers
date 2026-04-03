@@ -41,7 +41,7 @@ function LoginForm() {
     setSetPasswordLoading(true)
     setSetPasswordError('')
 
-    const res = await fetch('/api/auth/set-password', {
+    const res = await fetch('/api/set-password', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: setPasswordEmail, password: setPasswordValue }),
