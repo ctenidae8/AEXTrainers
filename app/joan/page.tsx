@@ -64,9 +64,20 @@ export default function JoanPage() {
       .then(data => {
         if (data.messages && data.messages.length > 0) {
           setMessages(data.messages)
+        } else {
+          // No prior conversation — Joan opens first
+          setMessages([{
+            role: 'assistant',
+            text: "Hello. I'm Joan. Before we get started — tell me about the project you want to build. What problem are you trying to solve, and who's it for?"
+          }])
         }
       })
-      .catch(() => {}) // silent fail — fresh start is acceptable
+      .catch(() => {
+        setMessages([{
+          role: 'assistant',
+          text: "Hello. I'm Joan. Before we get started — tell me about the project you want to build. What problem are you trying to solve, and who's it for?"
+        }])
+      })
   }, [enrollment])
 
   const handleSend = async (text: string) => {
@@ -191,6 +202,21 @@ export default function JoanPage() {
   // Enrolled: full Joan course
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#0f1117' }}>
+      {/* Scoped styles for Joan's input zone — keeps changes in this file only */}
+      <style>{`
+        .joan-chat textarea {
+          background: #22252e !important;
+          color: #c8ccd4 !important;
+        }
+        .joan-chat textarea::placeholder {
+          color: #6b7280 !important;
+        }
+        .joan-chat > div > div:last-child {
+          background: #22252e;
+          padding: 16px 20px !important;
+          border-top: 1px solid #2a2d36;
+        }
+      `}</style>
       <header style={{
         padding: '12px 20px',
         fontSize: 13,
@@ -200,9 +226,11 @@ export default function JoanPage() {
       }}>
         aex.training
       </header>
-      <SessionTracker current={currentSession} />
+      <div style={{ background: '#1e2128' }}>
+        <SessionTracker current={currentSession} />
+      </div>
       <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: 1, minWidth: 0 }} className="joan-chat">
           <ChatUI
             messages={messages}
             onSend={handleSend}
