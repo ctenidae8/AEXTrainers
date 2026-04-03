@@ -138,7 +138,7 @@ export default function VirgilPage() {
             Courses
           </span>
           <a href="/ariadne" style={navLinkStyle}>Ariadne</a>
-          <a href="/pricing" style={navLinkStyle}>Joan</a>
+          <a href="/joan" style={navLinkStyle}>Joan</a>
         </nav>
       </header>
       {messages.length <= 1 && (
