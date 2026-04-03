@@ -62,7 +62,7 @@ export default function JoanPage() {
     fetch('/api/joan/conversation')
       .then(res => res.json())
       .then(data => {
-        if (data.messages && data.messages.length > 0) {
+        if (data.messages && Array.isArray(data.messages) && data.messages.length > 0) {
           setMessages(data.messages)
         } else {
           // No prior conversation — Joan opens first
