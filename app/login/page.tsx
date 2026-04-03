@@ -170,6 +170,7 @@ export default function LoginPage() {
         <a href="/terms" style={{ color: '#555', textDecoration: 'none' }}>Terms</a>
         {' · '}
         <a href="/privacy" style={{ color: '#555', textDecoration: 'none' }}>Privacy</a>
+        <div style={{ marginTop: 6, color: '#333' }}>© 2026 AEXTech Holdings LLC</div>
       </footer>
     </div>
   )

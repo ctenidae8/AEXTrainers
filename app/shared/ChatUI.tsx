@@ -127,7 +127,7 @@ export default function ChatUI({ messages, onSend, loading, streamingText, foote
         </div>
       )}
 
-      <div style={{ padding: '8px 16px 16px', display: 'flex', gap: 8, alignItems: 'flex-end' }}>
+      <div style={{ padding: '12px 20px 24px', display: 'flex', gap: 8, alignItems: 'flex-end' }}>
         <textarea
           ref={inputRef}
           placeholder="Type a message..."

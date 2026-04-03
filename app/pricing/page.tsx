@@ -179,6 +179,7 @@ export default function PricingPage() {
             <a href="/terms" style={{ color: '#555', textDecoration: 'none' }}>Terms</a>
             {' · '}
             <a href="/privacy" style={{ color: '#555', textDecoration: 'none' }}>Privacy</a>
+            <span style={{ display: 'block', marginTop: 6, color: '#333' }}>© 2026 AEXTech Holdings LLC</span>
           </p>
         </div>
       </div>
