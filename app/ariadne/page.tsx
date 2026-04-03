@@ -182,7 +182,10 @@ export default function AriadnePage() {
         }}>
           aex.training
         </span>
-        <nav style={{ display: 'flex', gap: 20 }}>
+        <nav style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
+          <span style={{ fontSize: 11, color: '#555', letterSpacing: '0.06em', textTransform: 'uppercase' as const }}>
+            Courses
+          </span>
           <a href="/" style={navLinkStyle}>Virgil</a>
           <a href="/pricing" style={navLinkStyle}>Joan</a>
         </nav>
@@ -202,7 +205,7 @@ export default function AriadnePage() {
 
 const navLinkStyle: React.CSSProperties = {
   fontSize: 12,
-  color: '#555',
+  color: '#9ba3af',
   textDecoration: 'none',
   letterSpacing: '0.02em',
   transition: 'color 0.2s',
