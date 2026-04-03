@@ -158,12 +158,20 @@ export default function PricingPage() {
 
           {error && <p style={{ fontSize: 13, color: '#e07070', margin: 0 }}>{error}</p>}
 
-          <p style={{ fontSize: 12, color: '#555', margin: 0, textAlign: 'center' }}>
-            Have an access code?{' '}
-            <a href="/redeem" style={{ color: '#8a8f98', textDecoration: 'none' }}>
-              Redeem it here.
-            </a>
-          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }}>
+            <p style={{ fontSize: 13, color: '#8a8f98', margin: 0, textAlign: 'center' }}>
+              Have an access code?{' '}
+              <a href="/redeem" style={{ color: '#9ba3af', textDecoration: 'none', fontWeight: 500 }}>
+                Redeem it here.
+              </a>
+            </p>
+            <p style={{ fontSize: 13, color: '#8a8f98', margin: 0, textAlign: 'center' }}>
+              Already enrolled?{' '}
+              <a href="/login" style={{ color: '#9ba3af', textDecoration: 'none', fontWeight: 500 }}>
+                Sign in.
+              </a>
+            </p>
+          </div>
 
           <p style={{ fontSize: 11, color: '#444', margin: 0, textAlign: 'center' }}>
             <a href="/about" style={{ color: '#555', textDecoration: 'none' }}>About</a>
