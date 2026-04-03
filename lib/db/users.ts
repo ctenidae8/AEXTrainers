@@ -72,7 +72,11 @@ export async function loadConversation(
     SELECT messages FROM conversations WHERE aex_id = ${aex_id} AND course = ${course}
   `
   if (!result.rows[0]) return null
-  return result.rows[0].messages
+  const messages = result.rows[0].messages
+  // postgres.js auto-parses JSONB, but handle string case defensively
+  if (typeof messages === 'string') return JSON.parse(messages)
+  if (Array.isArray(messages)) return messages
+  return null
 }
 
 export async function createEnrollmentFromStripe(
