@@ -39,7 +39,7 @@ export default function RedeemPage() {
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     }}>
       <header style={{ position: 'absolute', top: 0, left: 0, padding: '12px 20px', fontSize: 13, color: '#8a8f98', fontWeight: 500, letterSpacing: '0.02em' }}>
-        aex.training
+        <a href="/" style={{ color: '#8a8f98', textDecoration: 'none' }}>aex.training</a>
       </header>
       <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 12 }}>
         <p style={{ color: '#c8ccd4', fontSize: 15, margin: 0 }}>Redeem access code</p>

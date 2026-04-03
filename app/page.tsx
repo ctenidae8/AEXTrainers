@@ -125,14 +125,15 @@ export default function VirgilPage() {
         alignItems: 'center',
         flexShrink: 0,
       }}>
-        <span style={{
+        <a href="/" style={{
           fontSize: 13,
           color: '#8a8f98',
           fontWeight: 500,
           letterSpacing: '0.02em',
+          textDecoration: 'none',
         }}>
           aex.training
-        </span>
+        </a>
         <nav style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
           <span style={{ fontSize: 11, color: '#555', letterSpacing: '0.06em', textTransform: 'uppercase' as const }}>
             Courses
@@ -150,7 +151,7 @@ export default function VirgilPage() {
           color: '#c8ccd4',
           letterSpacing: '0.04em',
         }}>
-          aex.training
+          <a href="/" style={{ color: '#c8ccd4', textDecoration: 'none' }}>aex.training</a>
           <div style={{ marginTop: 12, fontSize: 11, color: '#444', fontWeight: 400, letterSpacing: '0.01em' }}>
             <a href="/about" style={{ color: '#555', textDecoration: 'none' }}>About</a>
             {' · '}

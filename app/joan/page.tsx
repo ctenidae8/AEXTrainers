@@ -172,7 +172,7 @@ export default function JoanPage() {
         gap: 16,
       }}>
         <header style={{ position: 'absolute', top: 0, left: 0, padding: '12px 20px', fontSize: 13, color: '#8a8f98', fontWeight: 500, letterSpacing: '0.02em' }}>
-          aex.training
+          <a href="/" style={{ color: '#8a8f98', textDecoration: 'none' }}>aex.training</a>
         </header>
         <p style={{ color: '#c8ccd4', fontSize: 15 }}>Joan&apos;s course requires enrollment.</p>
         <a href="/redeem" style={{
@@ -224,7 +224,7 @@ export default function JoanPage() {
         fontWeight: 500,
         letterSpacing: '0.02em',
       }}>
-        aex.training
+        <a href="/" style={{ color: '#8a8f98', textDecoration: 'none' }}>aex.training</a>
       </header>
       <div style={{ background: '#1e2128' }}>
         <SessionTracker current={currentSession} />

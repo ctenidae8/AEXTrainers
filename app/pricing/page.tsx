@@ -38,7 +38,7 @@ export default function PricingPage() {
         fontWeight: 500,
         letterSpacing: '0.02em',
       }}>
-        aex.training
+        <a href="/" style={{ color: '#8a8f98', textDecoration: 'none' }}>aex.training</a>
       </header>
 
       <div style={{
