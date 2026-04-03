@@ -36,9 +36,22 @@ export default function AboutPage() {
             That&apos;s what aex.training is for. It&apos;s a way <em style={{ fontStyle: 'italic', color: '#c8ccd4' }}>you</em> can use AI, not be replaced by it. The faculty here are agents. That&apos;s intentional. You learn to work with AI by working with AI. Start with Virgil. He&apos;ll point you where you need to go.
           </p>
 
-          <p style={{ margin: 0, color: '#c8ccd4', fontWeight: 500 }}>
-            Go. Do.
-          </p>
+          <a href="/" style={{
+            display: 'inline-block',
+            background: '#1a1c23',
+            border: '1px solid #c97d3c',
+            borderRadius: 6,
+            padding: '10px 24px',
+            color: '#c97d3c',
+            fontSize: 15,
+            fontWeight: 500,
+            textDecoration: 'none',
+            fontFamily: 'inherit',
+            transition: 'color 0.2s, border-color 0.2s',
+            marginTop: 8,
+          }}>
+            Go. Do. →
+          </a>
         </div>
 
       </div>
