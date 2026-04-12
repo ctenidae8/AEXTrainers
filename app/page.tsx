@@ -44,10 +44,19 @@ export default function VirgilPage() {
         content: m.text,
       }))
 
+      // Get or create a handoff key for this browser session
+      let handoffKey = localStorage.getItem('aex_handoff_key')
+      if (!handoffKey) {
+        handoffKey = crypto.randomUUID()
+        localStorage.setItem('aex_handoff_key', handoffKey)
+      }
+
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          agent: 'virgil',
+          handoff_key: handoffKey,
           system: VIRGIL_SYSTEM_PROMPT,
           messages: apiMessages,
         }),

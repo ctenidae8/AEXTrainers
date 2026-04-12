@@ -40,10 +40,16 @@ export default function AriadnePage() {
         content: m.text,
       }))
 
+      const handoffKey = typeof window !== 'undefined'
+        ? localStorage.getItem('aex_handoff_key')
+        : null
+
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          agent: 'ariadne',
+          handoff_key: handoffKey,
           system: ARIADNE_SYSTEM_PROMPT,
           messages: apiMessages,
         }),
